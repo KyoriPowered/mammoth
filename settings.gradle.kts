@@ -1,1 +1,1 @@
-rootProject.name = "gradle-api"
+rootProject.name = "mammoth"
