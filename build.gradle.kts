@@ -6,7 +6,7 @@ plugins {
 }
 
 group = "net.kyori"
-version = "1.0.0-SNAPSHOT"
+version = "1.0.0"
 description = "Helpful API for writing Gradle plugins"
 
 repositories {
