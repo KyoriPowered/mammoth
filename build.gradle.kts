@@ -1,28 +1,27 @@
 plugins {
-  val indraVersion = "1.3.1"
+  val indraVersion = "2.0.4"
   id("net.kyori.indra") version indraVersion
   id("net.kyori.indra.license-header") version indraVersion
   id("net.kyori.indra.publishing.sonatype") version indraVersion
 }
 
 group = "net.kyori"
-version = "1.0.0"
+version = "1.1.0-SNAPSHOT"
 description = "Helpful API for writing Gradle plugins"
 
 repositories {
   mavenCentral()
-  // gradlePluginPortal()
 }
 
 dependencies {
-  compileOnlyApi("org.checkerframework:checker-qual:3.10.0")
+  compileOnlyApi("org.checkerframework:checker-qual:3.13.0")
   implementation(gradleApi())
 }
 
 indra {
   github("KyoriPowered", "mammoth") {
-    ci = true
-    publishing = true
+    ci(true)
+    publishing(true)
   }
   mitLicense()
 
