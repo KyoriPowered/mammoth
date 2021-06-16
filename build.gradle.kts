@@ -1,5 +1,6 @@
 plugins {
   val indraVersion = "2.0.4"
+  `java-test-fixtures`
   id("net.kyori.indra") version indraVersion
   id("net.kyori.indra.license-header") version indraVersion
   id("net.kyori.indra.publishing.sonatype") version indraVersion
@@ -16,6 +17,9 @@ repositories {
 dependencies {
   compileOnlyApi("org.checkerframework:checker-qual:3.13.0")
   implementation(gradleApi())
+  testFixturesApi(gradleTestKit())
+  testFixturesApi("org.junit.jupiter:junit-jupiter-api:5.7.2")
+  testFixturesImplementation("org.junit.platform:junit-platform-commons:1.7.2")
 }
 
 indra {
