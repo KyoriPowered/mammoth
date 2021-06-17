@@ -1,6 +1,5 @@
 plugins {
   val indraVersion = "2.0.4"
-  `java-test-fixtures`
   id("net.kyori.indra") version indraVersion
   id("net.kyori.indra.license-header") version indraVersion
   id("net.kyori.indra.publishing.sonatype") version indraVersion
@@ -10,41 +9,45 @@ group = "net.kyori"
 version = "1.1.0-SNAPSHOT"
 description = "Helpful API for writing Gradle plugins"
 
-repositories {
-  mavenCentral()
-}
-
 dependencies {
   compileOnlyApi("org.checkerframework:checker-qual:3.13.0")
   implementation(gradleApi())
-  testFixturesApi(gradleTestKit())
-  testFixturesApi("org.junit.jupiter:junit-jupiter-api:5.7.2")
-  testFixturesImplementation("org.junit.platform:junit-platform-commons:1.7.2")
 }
 
-indra {
-  github("KyoriPowered", "mammoth") {
-    ci(true)
-    publishing(true)
+allprojects {
+  apply(plugin="net.kyori.indra")
+  apply(plugin="net.kyori.indra.license-header")
+  apply(plugin="net.kyori.indra.publishing")
+
+  repositories {
+    // The 'gradle libs' repository added for plugin development prevents us from using central declaration
+    mavenCentral()
   }
-  mitLicense()
 
-  configurePublications {
-    pom {
-      organization {
-        name.set("KyoriPowered")
-        url.set("https://kyori.net")
-      }
+  indra {
+    github("KyoriPowered", "mammoth") {
+      ci(true)
+      publishing(true)
+    }
+    mitLicense()
 
-      developers {
-        developer {
-          id.set("kashike")
-          timezone.set("America/Vancouver")
+    configurePublications {
+      pom {
+        organization {
+          name.set("KyoriPowered")
+          url.set("https://kyori.net")
         }
-        developer {
-          id.set("zml")
-          email.set("zml at stellardrift [.] ca")
-          timezone.set("America/Vancouver")
+
+        developers {
+          developer {
+            id.set("kashike")
+            timezone.set("America/Vancouver")
+          }
+          developer {
+            id.set("zml")
+            email.set("zml at stellardrift [.] ca")
+            timezone.set("America/Vancouver")
+          }
         }
       }
     }
