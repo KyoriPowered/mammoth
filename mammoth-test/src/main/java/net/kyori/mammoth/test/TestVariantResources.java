@@ -31,33 +31,19 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * A variant of a test to execute.
- *
- * <p>At least one of {@link #gradleVersion()} or {@link #extraArguments()} must be provided.</p>
- *
- * <p>This annotation can be used as a composable meta-annotation.</p>
+ * A {@link Repeatable} container for {@link TestVariantResource} annotations.
  *
  * @since 1.1.0
  */
 @Documented
-@Repeatable(TestVariants.class)
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.ANNOTATION_TYPE, ElementType.METHOD})
-public @interface TestVariant {
+public @interface TestVariantResources {
   /**
-   * A gradle version ID.
+   * The resources to load variants from.
    *
-   * <p>This is only validated at test execution time.</p>
-   *
-   * @return the gradle version to test against
+   * @return the variant resources
    * @since 1.1.0
    */
-  String gradleVersion() default "";
-  /**
-   * Extra arguments to provide.
-   *
-   * @return the extra arguments
-   * @since 1.1.0
-   */
-  String[] extraArguments() default {};
+  TestVariantResource[] value();
 }

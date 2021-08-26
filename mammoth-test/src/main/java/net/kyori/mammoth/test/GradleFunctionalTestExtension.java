@@ -23,8 +23,12 @@
  */
 package net.kyori.mammoth.test;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.lang.reflect.Method;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -32,6 +36,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
+import javax.annotation.Nullable;
 import org.gradle.util.GradleVersion;
 import org.junit.jupiter.api.extension.Extension;
 import org.junit.jupiter.api.extension.ExtensionContext;
@@ -57,15 +62,48 @@ class GradleFunctionalTestExtension implements TestTemplateInvocationContextProv
   public Stream<TestTemplateInvocationContext> provideTestTemplateInvocationContexts(final ExtensionContext context) {
     final Optional<GradleParameters> parameters = AnnotationSupport.findAnnotation(context.getElement(), GradleParameters.class);
     final List<TestVariant> variants = AnnotationSupport.findRepeatableAnnotations(context.getElement(), TestVariant.class);
+    final List<TestVariantResource> variantSources = AnnotationSupport.findRepeatableAnnotations(context.getElement(), TestVariantResource.class);
     final String[] commonArgs = parameters.map(GradleParameters::value).orElse(new String[0]);
 
     // Execute the actual tests
-    if (variants.isEmpty()) { // populate with one variant for the current Gradle version
+    if (variants.isEmpty() && variantSources.isEmpty()) { // populate with one variant for the current Gradle version
       return Stream.of(this.produce(context, commonArgs, ""));
     } else {
-      return variants.stream()
+      final Stream<TestTemplateInvocationContext> directVariants = variants.stream()
         .map(variant -> this.produce(context, commonArgs, variant.gradleVersion(), variant.extraArguments()));
+
+      final Stream<TestTemplateInvocationContext> resourceVariants = variantSources.stream()
+        .flatMap(source -> this.readLines(source.value(), context.getRequiredTestClass().getResource(source.value())))
+        .filter(arr -> arr.length > 0)
+        .map(line -> this.produce(context, commonArgs, line[0], line.length > 1 ? line[1].split(" ", -1) : new String[0]));
+
+      return Stream.concat(directVariants, resourceVariants);
     }
+  }
+
+  private Stream<String[]> readLines(final String name, final @Nullable URL uri) {
+    if (uri == null) {
+      throw new IllegalArgumentException("Unable to find resource '" + name + "'");
+    }
+
+    final InputStreamReader reader;
+    try {
+      reader = new InputStreamReader(uri.openStream(), StandardCharsets.UTF_8);
+    } catch (final IOException ex) {
+      throw new RuntimeException(ex);
+    }
+
+    final BufferedReader buf = new BufferedReader(reader);
+    return buf.lines()
+      .filter(l -> !l.isEmpty())
+      .map(s -> s.split(":", -1))
+      .onClose(() -> {
+        try {
+          buf.close();
+        } catch (final IOException ex) {
+          throw new RuntimeException(ex);
+        }
+      });
   }
 
   private TestTemplateInvocationContext produce(final ExtensionContext context, final String[] commonArgs, final String gradleVersion, final String... extraArguments) {
