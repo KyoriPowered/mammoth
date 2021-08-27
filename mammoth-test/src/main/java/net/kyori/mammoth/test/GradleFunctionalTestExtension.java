@@ -73,7 +73,7 @@ class GradleFunctionalTestExtension implements TestTemplateInvocationContextProv
         .map(variant -> this.produce(context, commonArgs, variant.gradleVersion(), variant.extraArguments()));
 
       final Stream<TestTemplateInvocationContext> resourceVariants = variantSources.stream()
-        .flatMap(source -> this.readLines(source.value(), context.getRequiredTestClass().getResource(source.value())))
+        .flatMap(source -> this.readLines(source.value(), context.getRequiredTestClass().getResource(source.value()), source.optional()))
         .filter(arr -> arr.length > 0)
         .map(line -> this.produce(context, commonArgs, line[0], line.length > 1 ? line[1].split(" ", -1) : new String[0]));
 
@@ -81,8 +81,10 @@ class GradleFunctionalTestExtension implements TestTemplateInvocationContextProv
     }
   }
 
-  private Stream<String[]> readLines(final String name, final @Nullable URL uri) {
+  private Stream<String[]> readLines(final String name, final @Nullable URL uri, final boolean optional) {
     if (uri == null) {
+      if (optional) return Stream.empty();
+
       throw new IllegalArgumentException("Unable to find resource '" + name + "'");
     }
 

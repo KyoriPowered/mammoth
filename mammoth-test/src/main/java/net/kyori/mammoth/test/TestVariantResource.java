@@ -33,6 +33,8 @@ import java.lang.annotation.Target;
 /**
  * A resource to load test variants from.
  *
+ * <p>The resource path is relative to the test class. Prefix it with a {@code /} to make it absolute.</p>
+ *
  * <p>The file should have one variant per line, colon-separated {@code <gradle version>:<args...>}.
  * Arguments will automatically be split on spaces.</p>
  *
@@ -52,4 +54,12 @@ public @interface TestVariantResource {
    * @since 1.1.0
    */
   String value();
+
+  /**
+   * Whether to allow testing to proceed if no classpath resource was present.
+   *
+   * @return whether this resource is optional
+   * @since 1.1.0
+   */
+  boolean optional() default false;
 }
