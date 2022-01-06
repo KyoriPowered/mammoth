@@ -1,5 +1,5 @@
 rootProject.name = "mammoth"
 
-include("mammoth-test")
+include "mammoth-test"
 
 

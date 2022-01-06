@@ -1,0 +1,60 @@
+buildscript {
+  ext {
+    indraVersion = "2.0.6"
+  }
+}
+
+plugins {
+  id "net.kyori.indra" version "$indraVersion"
+  id "net.kyori.indra.license-header" version "$indraVersion"
+  id "net.kyori.indra.publishing.sonatype" version "$indraVersion"
+}
+
+group = "net.kyori"
+version = "1.1.0-SNAPSHOT"
+description = "Helpful API for writing Gradle plugins"
+
+dependencies {
+  compileOnlyApi "org.checkerframework:checker-qual:3.13.0"
+  implementation gradleApi()
+}
+
+allprojects {
+  apply plugin: "net.kyori.indra"
+  apply plugin: "net.kyori.indra.license-header"
+  apply plugin: "net.kyori.indra.publishing"
+
+  repositories {
+    // The 'gradle libs' repository added for plugin development prevents us from using central declaration
+    mavenCentral()
+  }
+
+  indra {
+    github("KyoriPowered", "mammoth") {
+      ci true
+      publishing true
+    }
+    mitLicense()
+
+    configurePublications {
+      pom {
+        organization {
+          name = "KyoriPowered"
+          url = "https://kyori.net"
+        }
+
+        developers {
+          developer {
+            id = "kashike"
+            timezone = "America/Vancouver"
+          }
+          developer {
+            id = "zml"
+            email = "zml at kyori [.] net"
+            timezone = "America/Vancouver"
+          }
+        }
+      }
+    }
+  }
+}
