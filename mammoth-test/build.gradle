@@ -4,6 +4,6 @@ dependencies {
   api gradleApi()
   api gradleTestKit()
   compileOnlyApi "org.jetbrains:annotations:23.0.0"
-  api "org.junit.jupiter:junit-jupiter-api:5.7.2"
-  implementation "org.junit.platform:junit-platform-commons:1.7.2"
+  api "org.junit.jupiter:junit-jupiter-api:5.8.2"
+  implementation "org.junit.platform:junit-platform-commons:1.8.2"
 }
