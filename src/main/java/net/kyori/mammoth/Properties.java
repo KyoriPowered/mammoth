@@ -23,8 +23,8 @@
  */
 package net.kyori.mammoth;
 
-import org.checkerframework.checker.nullness.qual.NonNull;
 import org.gradle.api.provider.HasConfigurableValue;
+import org.jetbrains.annotations.NotNull;
 
 public final class Properties {
   private Properties() {
@@ -38,7 +38,7 @@ public final class Properties {
    * @return the property
    * @since 2.0.0
    */
-  public static <T extends HasConfigurableValue> @NonNull T finalized(final @NonNull T property) {
+  public static <T extends HasConfigurableValue> @NotNull T finalized(final @NotNull T property) {
     property.finalizeValue();
     return property;
   }
@@ -51,7 +51,7 @@ public final class Properties {
    * @return the property
    * @since 2.0.0
    */
-  public static <T extends HasConfigurableValue> @NonNull T finalizedOnRead(final @NonNull T property) {
+  public static <T extends HasConfigurableValue> @NotNull T finalizedOnRead(final @NotNull T property) {
     property.finalizeValueOnRead();
     return property;
   }
@@ -64,7 +64,7 @@ public final class Properties {
    * @return the property
    * @since 2.0.0
    */
-  public static <T extends HasConfigurableValue> @NonNull T changesDisallowed(final @NonNull T property) {
+  public static <T extends HasConfigurableValue> @NotNull T changesDisallowed(final @NotNull T property) {
     property.disallowChanges();
     return property;
   }

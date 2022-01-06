@@ -23,9 +23,9 @@
  */
 package net.kyori.mammoth;
 
-import org.checkerframework.checker.nullness.qual.NonNull;
-import org.checkerframework.checker.nullness.qual.Nullable;
 import org.gradle.api.Action;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import static java.util.Objects.requireNonNull;
 
@@ -47,7 +47,7 @@ public final class Configurable {
    * @return the provided {@code instance}
    * @since 1.0.0
    */
-  public static <T> @NonNull T configure(final @NonNull T instance, final @NonNull Action<T> configureAction) {
+  public static <T> @NotNull T configure(final @NotNull T instance, final @NotNull Action<T> configureAction) {
     requireNonNull(configureAction, "configureAction").execute(instance);
     return instance;
   }
@@ -61,7 +61,7 @@ public final class Configurable {
    * @return the provided {@code instance}
    * @since 1.0.0
    */
-  public static <T> @NonNull T configureIfNonNull(final @NonNull T instance, final @Nullable Action<T> configureAction) {
+  public static <T> @NotNull T configureIfNonNull(final @NotNull T instance, final @Nullable Action<T> configureAction) {
     if(configureAction != null) {
       configureAction.execute(instance);
     }

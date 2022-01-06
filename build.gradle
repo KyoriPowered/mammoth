@@ -15,7 +15,7 @@ version = "1.1.0-SNAPSHOT"
 description = "Helpful API for writing Gradle plugins"
 
 dependencies {
-  compileOnlyApi "org.checkerframework:checker-qual:3.13.0"
+  compileOnlyApi "org.jetbrains:annotations:23.0.0"
   implementation gradleApi()
 }
 

@@ -23,13 +23,13 @@
  */
 package net.kyori.mammoth;
 
-import org.checkerframework.checker.nullness.qual.NonNull;
 import org.gradle.api.Plugin;
 import org.gradle.api.Project;
 import org.gradle.api.plugins.Convention;
 import org.gradle.api.plugins.ExtensionContainer;
 import org.gradle.api.plugins.PluginContainer;
 import org.gradle.api.tasks.TaskContainer;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * A more friendly interface for creating a {@link Plugin} that operates on a {@link Project}.
@@ -41,7 +41,7 @@ import org.gradle.api.tasks.TaskContainer;
 public interface ProjectPlugin extends Plugin<Project> {
   @Override
   @SuppressWarnings("deprecation") // workaround
-  default void apply(final @NonNull Project project) {
+  default void apply(final @NotNull Project project) {
     if (GradleCompat.HAS_CONVENTION) {
       this.apply(
         project,
@@ -73,11 +73,11 @@ public interface ProjectPlugin extends Plugin<Project> {
    */
   @Deprecated
   default void apply(
-    final @NonNull Project project,
-    final @NonNull PluginContainer plugins,
-    final @NonNull ExtensionContainer extensions,
-    final @NonNull Convention convention,
-    final @NonNull TaskContainer tasks
+    final @NotNull Project project,
+    final @NotNull PluginContainer plugins,
+    final @NotNull ExtensionContainer extensions,
+    final @NotNull Convention convention,
+    final @NotNull TaskContainer tasks
   ) {
     this.apply(project, plugins, extensions, tasks);
   }
@@ -92,10 +92,10 @@ public interface ProjectPlugin extends Plugin<Project> {
    * @since 1.1.0
    */
   default void apply(
-    final @NonNull Project project,
-    final @NonNull PluginContainer plugins,
-    final @NonNull ExtensionContainer extensions,
-    final @NonNull TaskContainer tasks
+    final @NotNull Project project,
+    final @NotNull PluginContainer plugins,
+    final @NotNull ExtensionContainer extensions,
+    final @NotNull TaskContainer tasks
   ) {
   }
 }
