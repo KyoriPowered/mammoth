@@ -34,18 +34,30 @@ import org.gradle.api.tasks.TaskContainer;
 /**
  * A more friendly interface for creating a {@link Plugin} that operates on a {@link Project}.
  *
+ * <p>Implementations should override the non-deprecated overload of {@code apply}, but until {@code Convention} is removed, either will work.</p>
+ *
  * @since 1.0.0
  */
 public interface ProjectPlugin extends Plugin<Project> {
   @Override
+  @SuppressWarnings("deprecation") // workaround
   default void apply(final @NonNull Project project) {
-    this.apply(
-      project,
-      project.getPlugins(),
-      project.getExtensions(),
-      project.getConvention(),
-      project.getTasks()
-    );
+    if (GradleCompat.HAS_CONVENTION) {
+      this.apply(
+        project,
+        project.getPlugins(),
+        project.getExtensions(),
+        project.getConvention(),
+        project.getTasks()
+      );
+    } else {
+      this.apply(
+        project,
+        project.getPlugins(),
+        project.getExtensions(),
+        project.getTasks()
+      );
+    }
   }
 
   /**
@@ -57,12 +69,33 @@ public interface ProjectPlugin extends Plugin<Project> {
    * @param convention the convention
    * @param tasks the task container
    * @since 1.0.0
+   * @deprecated for removal since 1.1.0, use {@link #apply(Project, PluginContainer, ExtensionContainer, TaskContainer)} instead
    */
-  void apply(
+  @Deprecated
+  default void apply(
     final @NonNull Project project,
     final @NonNull PluginContainer plugins,
     final @NonNull ExtensionContainer extensions,
     final @NonNull Convention convention,
     final @NonNull TaskContainer tasks
-  );
+  ) {
+    this.apply(project, plugins, extensions, tasks);
+  }
+
+  /**
+   * Applies the plugin.
+   *
+   * @param project the project
+   * @param plugins the plugin container
+   * @param extensions the extension container
+   * @param tasks the task container
+   * @since 1.1.0
+   */
+  default void apply(
+    final @NonNull Project project,
+    final @NonNull PluginContainer plugins,
+    final @NonNull ExtensionContainer extensions,
+    final @NonNull TaskContainer tasks
+  ) {
+  }
 }
