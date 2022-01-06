@@ -37,7 +37,10 @@ import java.util.List;
 import java.util.regex.Pattern;
 import org.gradle.testkit.runner.BuildResult;
 import org.gradle.testkit.runner.GradleRunner;
+import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.Assertions;
+
+import static java.util.Objects.requireNonNull;
 
 /**
  * Context information for individual tests.
@@ -75,11 +78,11 @@ public final class TestContext {
    * @return the output directory
    * @since 1.1.0
    */
-  public Path outputDirectory() {
+  public @NotNull Path outputDirectory() {
     return this.outputDirectory;
   }
 
-  String gradleVersion() {
+  @NotNull String gradleVersion() {
     return this.gradleVersion;
   }
 
@@ -89,7 +92,7 @@ public final class TestContext {
    * @param name the input relative to the test's directory
    * @since 1.1.0
    */
-  public void copyInput(final String name) throws IOException {
+  public void copyInput(final @NotNull String name) throws IOException {
     this.copyInput(name, name);
   }
 
@@ -100,7 +103,9 @@ public final class TestContext {
    * @param toName the name to use in the test's output directory
    * @since 1.1.0
    */
-  public void copyInput(final String fromName, final String toName) throws IOException {
+  public void copyInput(final @NotNull String fromName, final @NotNull String toName) throws IOException {
+    requireNonNull(fromName, "fromName");
+    requireNonNull(toName, "toName");
     try (final InputStream is = this.resourceBase.getResourceAsStream(this.testName + "/in/" + fromName)) {
       Assertions.assertNotNull(is, () -> "No resource found with name " + fromName);
       final Path destination = this.outputDirectory.resolve(toName);
@@ -123,7 +128,7 @@ public final class TestContext {
    * @throws IOException if thrown while attempting to read the output file
    * @since 1.1.0
    */
-  public String readOutput(final String fileName) throws IOException {
+  public @NotNull String readOutput(final @NotNull String fileName) throws IOException {
     final StringBuilder builder = new StringBuilder();
     try (final BufferedReader reader = Files.newBufferedReader(this.outputDirectory.resolve(fileName), StandardCharsets.UTF_8)) {
       final char[] buffer = new char[8192];
@@ -144,7 +149,7 @@ public final class TestContext {
    * @throws IOException if failed to read one of the files
    * @since 1.1.0
    */
-  public void assertOutputEquals(final String resourceName, final String fileName) throws IOException {
+  public void assertOutputEquals(final @NotNull String resourceName, final @NotNull String fileName) throws IOException {
     final String actualOutput = this.readOutput(fileName);
 
     final StringBuilder builder = new StringBuilder();
@@ -171,7 +176,7 @@ public final class TestContext {
    * @return the new runner
    * @since 1.1.0
    */
-  public GradleRunner runner(final String... extraArgs) {
+  public @NotNull GradleRunner runner(final @NotNull String@NotNull... extraArgs) {
     final List<String> args = new ArrayList<>(this.commonArguments.size() + extraArgs.length);
     args.addAll(this.commonArguments);
     Collections.addAll(args, extraArgs);
@@ -190,7 +195,7 @@ public final class TestContext {
    * @return the result of an executed build
    * @since 1.1.0
    */
-  public BuildResult build(final String... extraArgs) {
+  public @NotNull BuildResult build(final @NotNull String@NotNull... extraArgs) {
     return this.runner(extraArgs).build();
   }
 
