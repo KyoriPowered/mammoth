@@ -23,7 +23,7 @@
  */
 package net.kyori.mammoth;
 
-import org.apache.tools.ant.Project;
+import org.gradle.api.Project;
 
 final class GradleCompat {
   static final boolean HAS_CONVENTION;
