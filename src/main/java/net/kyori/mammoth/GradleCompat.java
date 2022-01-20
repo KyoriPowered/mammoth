@@ -24,18 +24,18 @@
 package net.kyori.mammoth;
 
 import org.gradle.api.Project;
+import org.gradle.api.provider.Provider;
 
 final class GradleCompat {
-  static final boolean HAS_CONVENTION;
+  static final boolean HAS_CONVENTION = hasMethod(Project.class, "getConvention");
+  static final boolean HAS_FOR_USE_AT_CONFIGURATION_TIME = hasMethod(Provider.class, "forUseAtConfigurationTime");
 
-  static {
-    boolean hasConvention = false;
-    try {
-      Project.class.getMethod("getConvention");
-      hasConvention = true;
-    } catch (final NoSuchMethodException ex) {
-      // no-op
-    }
-    HAS_CONVENTION = hasConvention;
+  private static boolean hasMethod(final Class<?> clazz, final String name, final Class<?>... args) {
+      try {
+        clazz.getMethod(name, args);
+        return true;
+      } catch (final NoSuchMethodException ex) {
+          return false;
+      }
   }
 }

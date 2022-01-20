@@ -24,10 +24,29 @@
 package net.kyori.mammoth;
 
 import org.gradle.api.provider.HasConfigurableValue;
+import org.gradle.api.provider.Provider;
 import org.jetbrains.annotations.NotNull;
 
 public final class Properties {
   private Properties() {
+  }
+
+  /**
+   * Mark a property as being for use at configuration time.
+   *
+   * <p>Gradle has deprecated this method, but it is required on older Gradle versions.</p>
+   *
+   * @param <T> the provider value type
+   * @param provider provider to get for use at configuration time
+   * @return a configuration time-safe view of the provided provider
+   * @since 1.1.0
+   */
+  public static <T> @NotNull Provider<T> forUseAtConfigurationTime(final @NotNull Provider<T> provider) {
+    if (GradleCompat.HAS_FOR_USE_AT_CONFIGURATION_TIME) {
+      return provider.forUseAtConfigurationTime();
+    } else {
+      return provider;
+    }
   }
 
   /**
@@ -36,7 +55,7 @@ public final class Properties {
    * @param property the property
    * @param <T> the type
    * @return the property
-   * @since 2.0.0
+   * @since 1.0.0
    */
   public static <T extends HasConfigurableValue> @NotNull T finalized(final @NotNull T property) {
     property.finalizeValue();
@@ -49,7 +68,7 @@ public final class Properties {
    * @param property the property
    * @param <T> the type
    * @return the property
-   * @since 2.0.0
+   * @since 1.0.0
    */
   public static <T extends HasConfigurableValue> @NotNull T finalizedOnRead(final @NotNull T property) {
     property.finalizeValueOnRead();
@@ -62,7 +81,7 @@ public final class Properties {
    * @param property the property
    * @param <T> the type
    * @return the property
-   * @since 2.0.0
+   * @since 1.0.0
    */
   public static <T extends HasConfigurableValue> @NotNull T changesDisallowed(final @NotNull T property) {
     property.disallowChanges();
