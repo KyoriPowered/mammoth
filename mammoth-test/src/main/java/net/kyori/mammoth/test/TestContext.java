@@ -90,6 +90,7 @@ public final class TestContext {
    * Copy a resource from the {@code <testName>/in/} directory to the run directory with no changes.
    *
    * @param name the input relative to the test's directory
+   * @throws IOException if an error occurs writing the input file to disk
    * @since 1.1.0
    */
   public void copyInput(final @NotNull String name) throws IOException {
@@ -101,6 +102,7 @@ public final class TestContext {
    *
    * @param fromName the name relative to the input
    * @param toName the name to use in the test's output directory
+   * @throws IOException if an error occurs writing the input file to disk
    * @since 1.1.0
    */
   public void copyInput(final @NotNull String fromName, final @NotNull String toName) throws IOException {
@@ -142,7 +144,7 @@ public final class TestContext {
 
   /**
    * Expect that the contents of the output file {@code fileName} is equal to
-   * the contents of the resource at  {@code <testName>/out/<resourceName>}.
+   * the contents of the resource at {@code <testName>/out/<resourceName>}.
    *
    * @param resourceName the name of the expected resource
    * @param fileName the name of the actual output file
