@@ -1,5 +1,12 @@
 rootProject.name = "mammoth"
 
+dependencyResolutionManagement {
+  repositoriesMode = RepositoriesMode.FAIL_ON_PROJECT_REPOS
+  repositories {
+    mavenCentral()
+  }
+}
+
 include "mammoth-test"
 
 

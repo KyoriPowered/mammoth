@@ -1,0 +1,19 @@
+[metadata]
+version = "1.0"
+
+[versions]
+indra = "2.1.1"
+junit = "5.8.2"
+
+[libraries]
+jetbrainsAnnotations = "org.jetbrains:annotations:23.0.0"
+
+# test
+junit-bom = { module = "org.junit:junit-bom", version.ref = "junit" }
+junit-api = { module = "org.junit.jupiter:junit-jupiter-api" }
+junit-platformCommons = { module = "org.junit.platform:junit-platform-commons" }
+
+[plugins]
+indra = { id = "net.kyori.indra", version.ref = "indra" }
+indra-licenseHeader = { id = "net.kyori.indra.license-header", version.ref = "indra" }
+indra-sonatype = { id = "net.kyori.indra.publishing.sonatype", version.ref = "indra" }

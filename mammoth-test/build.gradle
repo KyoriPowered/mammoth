@@ -3,7 +3,8 @@ description = "JUnit extensions for testing Gradle plugins"
 dependencies {
   api gradleApi()
   api gradleTestKit()
-  compileOnlyApi "org.jetbrains:annotations:23.0.0"
-  api "org.junit.jupiter:junit-jupiter-api:5.8.2"
-  implementation "org.junit.platform:junit-platform-commons:1.8.2"
+  compileOnlyApi libs.jetbrainsAnnotations
+  api platform(libs.junit.bom)
+  api libs.junit.api
+  implementation libs.junit.platformCommons
 }

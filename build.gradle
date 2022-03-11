@@ -1,21 +1,19 @@
-buildscript {
-  ext {
-    indraVersion = "2.1.1"
-  }
-}
-
 plugins {
-  id "net.kyori.indra" version "$indraVersion"
-  id "net.kyori.indra.license-header" version "$indraVersion"
-  id "net.kyori.indra.publishing.sonatype" version "$indraVersion"
+  alias libs.plugins.indra
+  alias libs.plugins.indra.licenseHeader
+  alias libs.plugins.indra.sonatype
 }
 
 group = "net.kyori"
 version = "1.2.0-SNAPSHOT"
 description = "Helpful API for writing Gradle plugins"
 
+indraSonatype {
+  useAlternateSonatypeOSSHost("s01")
+}
+
 dependencies {
-  compileOnlyApi "org.jetbrains:annotations:23.0.0"
+  compileOnlyApi libs.jetbrainsAnnotations
   implementation gradleApi()
 }
 
@@ -23,11 +21,6 @@ allprojects {
   apply plugin: "net.kyori.indra"
   apply plugin: "net.kyori.indra.license-header"
   apply plugin: "net.kyori.indra.publishing"
-
-  repositories {
-    // The 'gradle libs' repository added for plugin development prevents us from using central declaration
-    mavenCentral()
-  }
 
   indra {
     github("KyoriPowered", "mammoth") {
