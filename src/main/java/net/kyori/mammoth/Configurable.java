@@ -62,7 +62,7 @@ public final class Configurable {
    * @since 1.0.0
    */
   public static <T> @NotNull T configureIfNonNull(final @NotNull T instance, final @Nullable Action<T> configureAction) {
-    if(configureAction != null) {
+    if (configureAction != null) {
       configureAction.execute(instance);
     }
     return instance;

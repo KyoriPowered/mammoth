@@ -21,24 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+/**
+ * Helpers for developing Gradle plugins.
+ */
 package net.kyori.mammoth;
-
-import org.gradle.api.Project;
-import org.gradle.api.provider.Provider;
-
-final class GradleCompat {
-  static final boolean HAS_CONVENTION = hasMethod(Project.class, "getConvention");
-  static final boolean HAS_FOR_USE_AT_CONFIGURATION_TIME = hasMethod(Provider.class, "forUseAtConfigurationTime");
-
-  private GradleCompat() {
-  }
-
-  private static boolean hasMethod(final Class<?> clazz, final String name, final Class<?>... args) {
-    try {
-      clazz.getMethod(name, args);
-      return true;
-    } catch (final NoSuchMethodException ex) {
-      return false;
-    }
-  }
-}

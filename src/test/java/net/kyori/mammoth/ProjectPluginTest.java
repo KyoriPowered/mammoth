@@ -53,7 +53,7 @@ class ProjectPluginTest {
 
   @Test
   void testMinimumVersionMismatch() {
-    final GradleException ex =  assertThrows(
+    final GradleException ex = assertThrows(
       PluginApplicationException.class,
       () -> ProjectBuilder.builder().build().getPluginManager().apply(ProjectPluginFailing.class)
     );

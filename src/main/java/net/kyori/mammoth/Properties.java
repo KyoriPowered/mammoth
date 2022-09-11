@@ -27,6 +27,11 @@ import org.gradle.api.provider.HasConfigurableValue;
 import org.gradle.api.provider.Provider;
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * Helpers for working with properties.
+ *
+ * @since 1.0.0
+ */
 public final class Properties {
   private Properties() {
   }
