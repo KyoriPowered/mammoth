@@ -15,6 +15,13 @@ indraSonatype {
 dependencies {
   compileOnlyApi libs.jetbrainsAnnotations
   implementation gradleApi()
+  testImplementation platform(libs.junit.bom)
+  testImplementation libs.junit.api
+  testRuntimeOnly libs.junit.engine
+}
+
+tasks.withType(Test).configureEach {
+  jvmArgs(["--add-opens=java.base/java.lang=ALL-UNNAMED"]) // for ProjectBuilder tests
 }
 
 allprojects {

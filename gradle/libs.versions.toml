@@ -11,6 +11,7 @@ jetbrainsAnnotations = "org.jetbrains:annotations:23.0.0"
 # test
 junit-bom = { module = "org.junit:junit-bom", version.ref = "junit" }
 junit-api = { module = "org.junit.jupiter:junit-jupiter-api" }
+junit-engine = { module = "org.junit.jupiter:junit-jupiter-engine" }
 junit-platformCommons = { module = "org.junit.platform:junit-platform-commons" }
 
 [plugins]

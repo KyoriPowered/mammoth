@@ -23,13 +23,16 @@
  */
 package net.kyori.mammoth;
 
+import org.gradle.api.GradleException;
 import org.gradle.api.Plugin;
 import org.gradle.api.Project;
 import org.gradle.api.plugins.Convention;
 import org.gradle.api.plugins.ExtensionContainer;
 import org.gradle.api.plugins.PluginContainer;
 import org.gradle.api.tasks.TaskContainer;
+import org.gradle.util.GradleVersion;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * A more friendly interface for creating a {@link Plugin} that operates on a {@link Project}.
@@ -42,6 +45,19 @@ public interface ProjectPlugin extends Plugin<Project> {
   @Override
   @SuppressWarnings("deprecation") // workaround
   default void apply(final @NotNull Project project) {
+    // Check version
+    final @Nullable GradleVersion minimum = this.minimumGradleVersion();
+    if (minimum != null) {
+      final GradleVersion current = GradleVersion.current();
+      if (current.compareTo(minimum) < 0) {
+        throw new GradleException(
+          "Your Gradle version is too old to apply the plugin from " + this.getClass().getName() + " to " + project.getDisplayName() + "\n"
+            + "    Minimum: " + minimum + "\n"
+            + "    Current: " + current + "\n"
+        );
+      }
+    }
+
     if (GradleCompat.HAS_CONVENTION) {
       this.apply(
         project,
@@ -97,5 +113,15 @@ public interface ProjectPlugin extends Plugin<Project> {
     final @NotNull ExtensionContainer extensions,
     final @NotNull TaskContainer tasks
   ) {
+  }
+
+  /**
+   * Return a minimum Gradle version required to use this plugin.
+   *
+   * @return the minimum required version
+   * @since 1.2.0
+   */
+  default @Nullable GradleVersion minimumGradleVersion() {
+    return null;
   }
 }
