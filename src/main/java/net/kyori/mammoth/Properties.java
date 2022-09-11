@@ -41,6 +41,7 @@ public final class Properties {
    * @return a configuration time-safe view of the provided provider
    * @since 1.1.0
    */
+  @SuppressWarnings("deprecation")
   public static <T> @NotNull Provider<T> forUseAtConfigurationTime(final @NotNull Provider<T> provider) {
     if (GradleCompat.HAS_FOR_USE_AT_CONFIGURATION_TIME) {
       return provider.forUseAtConfigurationTime();
