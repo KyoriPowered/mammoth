@@ -22,7 +22,9 @@ dependencies {
 }
 
 tasks.withType(Test).configureEach {
-  jvmArgs(["--add-opens=java.base/java.lang=ALL-UNNAMED"]) // for ProjectBuilder tests
+  if (!name.contains("Java8")) {
+    jvmArgs(["--add-opens=java.base/java.lang=ALL-UNNAMED"]) // for ProjectBuilder tests
+  }
 }
 
 allprojects {
