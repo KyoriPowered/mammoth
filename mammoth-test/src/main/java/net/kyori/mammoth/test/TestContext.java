@@ -123,6 +123,25 @@ public final class TestContext {
   }
 
   /**
+   * Write literal text to a file in the run director with the provided new name.
+   *
+   * @param destination The path to the location to write to
+   * @param text the text to write
+   * @throws IOException if an error occurs writing the text
+   * @since 1.2.0
+   */
+  public void writeText(final @NotNull String destination, final @NotNull String text) throws IOException {
+    requireNonNull(destination, "destination");
+    requireNonNull(text, "text");
+
+    final Path destinationPath = this.outputDirectory.resolve(destination);
+    Files.createDirectories(destinationPath.getParent());
+    try (final OutputStream os = Files.newOutputStream(destinationPath)) {
+      os.write(TestContext.normalizeLineEndings(text).getBytes(StandardCharsets.UTF_8));
+    }
+  }
+
+  /**
    * Expect that a file is present in the output directory with the provided path.
    *
    * @param fileName the file name
@@ -140,6 +159,24 @@ public final class TestContext {
       }
     }
     return TestContext.normalizeLineEndings(builder.toString());
+  }
+
+  /**
+   * Assert that the output at {@code destination} is equal to the literal {@code text}.
+   *
+   * @param destination the output file to check
+   * @param text the expected text
+   * @throws IOException if an error occurs reading the text
+   * @since 1.2.0
+   */
+  public void assertOutputEqualsLiteral(final @NotNull String destination, final @NotNull String text) throws IOException {
+    requireNonNull(destination, "destination");
+    requireNonNull(text, "text");
+
+    final String actualOutput = this.readOutput(destination);
+    final String expected = TestContext.normalizeLineEndings(text);
+
+    Assertions.assertEquals(expected, actualOutput);
   }
 
   /**
