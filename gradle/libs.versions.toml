@@ -6,6 +6,7 @@ checkstyle = "10.3.3"
 indra = "2.1.1"
 junit = "5.9.0"
 stylecheck = "0.2.0"
+errorprone = "2.15.0"
 
 [libraries]
 jetbrainsAnnotations = "org.jetbrains:annotations:23.0.0"
@@ -18,6 +19,7 @@ junit-platformCommons = { module = "org.junit.platform:junit-platform-commons" }
 
 # build
 stylecheck = { module = "ca.stellardrift:stylecheck", version.ref = "stylecheck" }
+errorprone = { module = "com.google.errorprone:error_prone_core", version.ref = "errorprone" }
 
 # for renovate, do not use
 zCheckstyle = { module = "com.puppycrawl.tools:checkstyle", version.ref = "checkstyle" }
@@ -27,3 +29,4 @@ indra = { id = "net.kyori.indra", version.ref = "indra" }
 indra-checkstyle = { id = "net.kyori.indra.checkstyle", version.ref = "indra" }
 indra-licenseHeader = { id = "net.kyori.indra.license-header", version.ref = "indra" }
 indra-sonatype = { id = "net.kyori.indra.publishing.sonatype", version.ref = "indra" }
+errorprone = "net.ltgt.errorprone:2.0.2"
