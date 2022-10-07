@@ -43,6 +43,7 @@ allprojects {
   }
 
   spotless {
+    ratchetFrom 'origin/main'
     java {
       endWithNewline()
       indentWithSpaces(2)
