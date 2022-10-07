@@ -3,7 +3,7 @@ version = "1.0"
 
 [versions]
 checkstyle = "10.3.4"
-indra = "2.1.1"
+indra = "3.0.0"
 junit = "5.9.1"
 stylecheck = "0.2.0"
 errorprone = "2.15.0"
@@ -27,6 +27,7 @@ zCheckstyle = { module = "com.puppycrawl.tools:checkstyle", version.ref = "check
 [plugins]
 indra = { id = "net.kyori.indra", version.ref = "indra" }
 indra-checkstyle = { id = "net.kyori.indra.checkstyle", version.ref = "indra" }
-indra-licenseHeader = { id = "net.kyori.indra.license-header", version.ref = "indra" }
+indra-licenserSpotless = { id = "net.kyori.indra.licenser.spotless", version.ref = "indra" }
 indra-sonatype = { id = "net.kyori.indra.publishing.sonatype", version.ref = "indra" }
 errorprone = "net.ltgt.errorprone:2.0.2"
+spotless = { id = "com.diffplug.spotless", version = "6.11.0" }

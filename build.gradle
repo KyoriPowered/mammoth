@@ -1,8 +1,9 @@
 plugins {
   alias libs.plugins.errorprone
+  alias libs.plugins.spotless
   alias libs.plugins.indra
   alias libs.plugins.indra.checkstyle
-  alias libs.plugins.indra.licenseHeader
+  alias libs.plugins.indra.licenserSpotless
   alias libs.plugins.indra.sonatype
 }
 
@@ -31,7 +32,7 @@ tasks.withType(Test).configureEach {
 
 allprojects {
   apply plugin: "net.kyori.indra"
-  apply plugin: "net.kyori.indra.license-header"
+  apply plugin: "net.kyori.indra.licenser.spotless"
   apply plugin: "net.kyori.indra.publishing"
   apply plugin: "net.kyori.indra.checkstyle"
   apply plugin: "net.ltgt.errorprone"
@@ -39,6 +40,16 @@ allprojects {
   dependencies {
     checkstyle(libs.stylecheck)
     errorprone(libs.errorprone)
+  }
+
+  spotless {
+    java {
+      endWithNewline()
+      indentWithSpaces(2)
+      importOrderFile rootProject.file('.spotless/kyori.importorder')
+      formatAnnotations()
+      removeUnusedImports()
+    }
   }
 
   indra {
