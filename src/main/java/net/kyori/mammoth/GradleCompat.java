@@ -23,8 +23,12 @@
  */
 package net.kyori.mammoth;
 
+import org.gradle.api.GradleException;
+import org.gradle.api.Plugin;
 import org.gradle.api.Project;
 import org.gradle.api.provider.Provider;
+import org.gradle.util.GradleVersion;
+import org.jetbrains.annotations.Nullable;
 
 final class GradleCompat {
   static final boolean HAS_CONVENTION = hasMethod(Project.class, "getConvention");
@@ -39,6 +43,20 @@ final class GradleCompat {
       return true;
     } catch (final NoSuchMethodException ex) {
       return false;
+    }
+  }
+
+  static void requireMinimumVersion(final @Nullable GradleVersion minimum, final Plugin<?> plugin, final String targetDisplayName) {
+    // Check version
+    if (minimum != null) {
+      final GradleVersion current = GradleVersion.current();
+      if (current.compareTo(minimum) < 0) {
+        throw new GradleException(
+          "Your Gradle version is too old to apply the plugin from " + plugin.getClass().getName() + " to " + targetDisplayName + "\n"
+            + "    Minimum: " + minimum + "\n"
+            + "    Current: " + current + "\n"
+        );
+      }
     }
   }
 }

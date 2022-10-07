@@ -23,7 +23,6 @@
  */
 package net.kyori.mammoth;
 
-import org.gradle.api.GradleException;
 import org.gradle.api.Plugin;
 import org.gradle.api.Project;
 import org.gradle.api.plugins.Convention;
@@ -46,17 +45,7 @@ public interface ProjectPlugin extends Plugin<Project> {
   @SuppressWarnings("deprecation") // workaround
   default void apply(final @NotNull Project project) {
     // Check version
-    final @Nullable GradleVersion minimum = this.minimumGradleVersion();
-    if (minimum != null) {
-      final GradleVersion current = GradleVersion.current();
-      if (current.compareTo(minimum) < 0) {
-        throw new GradleException(
-          "Your Gradle version is too old to apply the plugin from " + this.getClass().getName() + " to " + project.getDisplayName() + "\n"
-            + "    Minimum: " + minimum + "\n"
-            + "    Current: " + current + "\n"
-        );
-      }
-    }
+    GradleCompat.requireMinimumVersion(this.minimumGradleVersion(), this, project.getDisplayName());
 
     if (GradleCompat.HAS_CONVENTION) {
       this.apply(
