@@ -28,6 +28,9 @@ import org.gradle.api.Plugin;
 import org.gradle.api.Project;
 import org.gradle.api.initialization.Settings;
 import org.gradle.api.invocation.Gradle;
+import org.gradle.api.plugins.ExtensionContainer;
+import org.gradle.api.plugins.PluginContainer;
+import org.gradle.api.tasks.TaskContainer;
 import org.gradle.util.GradleVersion;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -41,12 +44,13 @@ public interface ProjectOrSettingsPlugin extends Plugin<Object> {
   @Override
   default void apply(final @NotNull Object target) {
     if (target instanceof Project) {
-      GradleCompat.requireMinimumVersion(this.minimumGradleVersion(), this, ((Project) target).getDisplayName());
-      this.applyToProject((Project) target);
+      final Project project = (Project) target;
+      GradleCompat.requireMinimumVersion(this.minimumGradleVersion(), this, project.getDisplayName());
+      this.applyToProject(project, project.getPlugins(), project.getExtensions(), project.getTasks());
     } else if (target instanceof Settings) {
       final Settings settings = (Settings) target;
       GradleCompat.requireMinimumVersion(this.minimumGradleVersion(), this, "settings");
-      this.applyToSettings(settings);
+      this.applyToSettings(settings, settings.getPlugins(), settings.getExtensions());
       settings.getGradle().getPlugins().apply(this.getClass());
     } else if (!(target instanceof Gradle)) {
       throw new GradleException(
@@ -61,17 +65,32 @@ public interface ProjectOrSettingsPlugin extends Plugin<Object> {
    * Called when this plugin is applied to a {@link Project} instance.
    *
    * @param target the project this plugin is being applied to
+   * @param plugins the plugin container
+   * @param extensions the extension container
+   * @param tasks the task container
    * @since 1.3.0
    */
-  void applyToProject(final Project target);
+  default void applyToProject(
+    final @NotNull Project target,
+    final @NotNull PluginContainer plugins,
+    final @NotNull ExtensionContainer extensions,
+    final @NotNull TaskContainer tasks
+  ) {
+  }
 
   /**
    * Called when this plugin is applied to a {@link Settings} instance.
    *
    * @param target the settings this plugin is being applied to
+   * @param plugins the plugin container
+   * @param extensions the extension container
    * @since 1.3.0
    */
-  void applyToSettings(final Settings target);
+  void applyToSettings(
+    final @NotNull Settings target,
+    final @NotNull PluginContainer plugins,
+    final @NotNull ExtensionContainer extensions
+  );
 
   /**
    * Return a minimum Gradle version required to use this plugin.
@@ -90,7 +109,7 @@ public interface ProjectOrSettingsPlugin extends Plugin<Object> {
    * @return whether the Settings that created the provided project has this plugin applied
    * @since 1.3.0
    */
-  default boolean isAppliedToSettingsOf(final Project project) {
+  default boolean isAppliedToSettingsOf(final @NotNull Project project) {
     return project.getGradle().getPlugins().hasPlugin(this.getClass());
   }
 }
