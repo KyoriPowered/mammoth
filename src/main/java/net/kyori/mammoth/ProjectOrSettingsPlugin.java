@@ -70,13 +70,12 @@ public interface ProjectOrSettingsPlugin extends Plugin<Object> {
    * @param tasks the task container
    * @since 1.3.0
    */
-  default void applyToProject(
+  void applyToProject(
     final @NotNull Project target,
     final @NotNull PluginContainer plugins,
     final @NotNull ExtensionContainer extensions,
     final @NotNull TaskContainer tasks
-  ) {
-  }
+  );
 
   /**
    * Called when this plugin is applied to a {@link Settings} instance.
