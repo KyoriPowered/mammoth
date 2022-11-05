@@ -3,7 +3,7 @@ version = "1.0"
 
 [versions]
 checkstyle = "10.4"
-indra = "3.0.0"
+indra = "3.0.1"
 junit = "5.9.1"
 stylecheck = "0.2.0"
 errorprone = "2.16"
