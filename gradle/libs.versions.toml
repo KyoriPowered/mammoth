@@ -6,7 +6,7 @@ checkstyle = "10.3.4"
 indra = "3.0.0"
 junit = "5.9.1"
 stylecheck = "0.2.0"
-errorprone = "2.15.0"
+errorprone = "2.16"
 
 [libraries]
 jetbrainsAnnotations = "org.jetbrains:annotations:23.0.0"
