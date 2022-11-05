@@ -29,5 +29,5 @@ indra = { id = "net.kyori.indra", version.ref = "indra" }
 indra-checkstyle = { id = "net.kyori.indra.checkstyle", version.ref = "indra" }
 indra-licenserSpotless = { id = "net.kyori.indra.licenser.spotless", version.ref = "indra" }
 indra-sonatype = { id = "net.kyori.indra.publishing.sonatype", version.ref = "indra" }
-errorprone = "net.ltgt.errorprone:2.0.2"
+errorprone = "net.ltgt.errorprone:3.0.1"
 spotless = { id = "com.diffplug.spotless", version = "6.11.0" }
