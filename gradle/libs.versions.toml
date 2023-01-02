@@ -9,7 +9,7 @@ stylecheck = "0.2.0"
 errorprone = "2.16"
 
 [libraries]
-jetbrainsAnnotations = "org.jetbrains:annotations:23.0.0"
+jetbrainsAnnotations = "org.jetbrains:annotations:23.1.0"
 
 # test
 junit-bom = { module = "org.junit:junit-bom", version.ref = "junit" }
