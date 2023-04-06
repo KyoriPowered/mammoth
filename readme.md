@@ -1,6 +1,6 @@
 # mammoth
 
-![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/KyoriPowered/mammoth/build/master) [![MIT License](https://img.shields.io/badge/license-MIT-blue)](license.txt)
+![GitHub Workflow Status (branch)](https://img.shields.io/github/actions/workflow/status/KyoriPowered/mammoth/build.yml?branch=main) [![MIT License](https://img.shields.io/badge/license-MIT-blue)](license.txt)
 
 ## Plugin Utilities
 
