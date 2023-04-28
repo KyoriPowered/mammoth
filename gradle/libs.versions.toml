@@ -4,7 +4,7 @@ version = "1.0"
 [versions]
 checkstyle = "10.9.3"
 indra = "3.0.1"
-junit = "5.9.2"
+junit = "5.9.3"
 stylecheck = "0.2.0"
 errorprone = "2.18.0"
 
