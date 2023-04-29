@@ -1,7 +1,7 @@
 /*
  * This file is part of mammoth, licensed under the MIT License.
  *
- * Copyright (c) 2021-2022 KyoriPowered
+ * Copyright (c) 2021-2023 KyoriPowered
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -31,7 +31,7 @@ import org.gradle.util.GradleVersion;
 import org.jetbrains.annotations.Nullable;
 
 final class GradleCompat {
-  static final boolean HAS_CONVENTION = hasMethod(Project.class, "getConvention");
+  static final boolean SHOULD_USE_CONVENTION = hasMethod(Project.class, "getConvention") && !hasMinGradleVersion("8.2");
   static final boolean HAS_FOR_USE_AT_CONFIGURATION_TIME = hasMethod(Provider.class, "forUseAtConfigurationTime");
 
   private GradleCompat() {
@@ -44,6 +44,10 @@ final class GradleCompat {
     } catch (final NoSuchMethodException ex) {
       return false;
     }
+  }
+
+  static boolean hasMinGradleVersion(final String version) {
+    return GradleVersion.version(version).compareTo(GradleVersion.current()) >= 0;
   }
 
   static void requireMinimumVersion(final @Nullable GradleVersion minimum, final Plugin<?> plugin, final String targetDisplayName) {

@@ -1,7 +1,7 @@
 /*
  * This file is part of mammoth, licensed under the MIT License.
  *
- * Copyright (c) 2021-2022 KyoriPowered
+ * Copyright (c) 2021-2023 KyoriPowered
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -23,6 +23,7 @@
  */
 package net.kyori.mammoth;
 
+import org.gradle.api.GradleException;
 import org.gradle.api.Plugin;
 import org.gradle.api.Project;
 import org.gradle.api.plugins.Convention;
@@ -47,7 +48,7 @@ public interface ProjectPlugin extends Plugin<Project> {
     // Check version
     GradleCompat.requireMinimumVersion(this.minimumGradleVersion(), this, project.getDisplayName());
 
-    if (GradleCompat.HAS_CONVENTION) {
+    if (GradleCompat.SHOULD_USE_CONVENTION) {
       this.apply(
         project,
         project.getPlugins(),
@@ -102,6 +103,8 @@ public interface ProjectPlugin extends Plugin<Project> {
     final @NotNull ExtensionContainer extensions,
     final @NotNull TaskContainer tasks
   ) {
+    throw new GradleException("The plugin in class " + this.getClass() + " has not been updated" +
+      "to override the non-Convention apply method in ProjectPlugin!");
   }
 
   /**

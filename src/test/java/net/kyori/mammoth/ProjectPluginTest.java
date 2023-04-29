@@ -1,7 +1,7 @@
 /*
  * This file is part of mammoth, licensed under the MIT License.
  *
- * Copyright (c) 2021-2022 KyoriPowered
+ * Copyright (c) 2021-2023 KyoriPowered
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -24,9 +24,14 @@
 package net.kyori.mammoth;
 
 import org.gradle.api.GradleException;
+import org.gradle.api.Project;
 import org.gradle.api.internal.plugins.PluginApplicationException;
+import org.gradle.api.plugins.ExtensionContainer;
+import org.gradle.api.plugins.PluginContainer;
+import org.gradle.api.tasks.TaskContainer;
 import org.gradle.testfixtures.ProjectBuilder;
 import org.gradle.util.GradleVersion;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.junit.jupiter.api.Test;
 
@@ -39,12 +44,23 @@ class ProjectPluginTest {
 
   static class ProjectPluginFailing implements ProjectPlugin {
     @Override
+    public void apply(final @NotNull Project project, final @NotNull PluginContainer plugins, final @NotNull ExtensionContainer extensions, final @NotNull TaskContainer tasks) {
+      // no-op
+    }
+
+    @Override
     public @Nullable GradleVersion minimumGradleVersion() {
       return GradleVersion.version("999.9.9");
     }
   }
 
   static class ProjectPluginSuccessful implements ProjectPlugin {
+
+    @Override
+    public void apply(final @NotNull Project project, final @NotNull PluginContainer plugins, final @NotNull ExtensionContainer extensions, final @NotNull TaskContainer tasks) {
+      // no-op
+    }
+
     @Override
     public @Nullable GradleVersion minimumGradleVersion() {
       return GradleVersion.version("6.9.0");
