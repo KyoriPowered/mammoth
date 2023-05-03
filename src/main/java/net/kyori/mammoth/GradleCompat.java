@@ -32,7 +32,7 @@ import org.jetbrains.annotations.Nullable;
 
 final class GradleCompat {
   static final boolean SHOULD_USE_CONVENTION = hasMethod(Project.class, "getConvention") && !hasMinGradleVersion("8.2");
-  static final boolean HAS_FOR_USE_AT_CONFIGURATION_TIME = hasMethod(Provider.class, "forUseAtConfigurationTime");
+  static final boolean HAS_FOR_USE_AT_CONFIGURATION_TIME = hasMethod(Provider.class, "forUseAtConfigurationTime") && !hasMinGradleVersion("7.6");
 
   private GradleCompat() {
   }
