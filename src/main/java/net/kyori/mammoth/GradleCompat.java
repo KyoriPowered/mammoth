@@ -47,7 +47,8 @@ final class GradleCompat {
   }
 
   static boolean hasMinGradleVersion(final String version) {
-    return GradleVersion.version(version).compareTo(GradleVersion.current()) >= 0;
+    // compare releases, stripping snapshot info
+    return GradleVersion.current().getBaseVersion().compareTo(GradleVersion.version(version)) >= 0;
   }
 
   static void requireMinimumVersion(final @Nullable GradleVersion minimum, final Plugin<?> plugin, final String targetDisplayName) {
