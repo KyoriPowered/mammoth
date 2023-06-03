@@ -5,7 +5,7 @@ version = "1.0"
 checkstyle = "10.10.0"
 indra = "3.1.1"
 junit = "5.9.3"
-stylecheck = "0.2.0"
+stylecheck = "0.2.1"
 errorprone = "2.18.0"
 
 [libraries]
