@@ -16,6 +16,7 @@ junit-bom = { module = "org.junit:junit-bom", version.ref = "junit" }
 junit-api = { module = "org.junit.jupiter:junit-jupiter-api" }
 junit-engine = { module = "org.junit.jupiter:junit-jupiter-engine" }
 junit-platformCommons = { module = "org.junit.platform:junit-platform-commons" }
+junit-launcher = { module = "org.junit.platform:junit-platform-launcher"}
 
 # build
 stylecheck = { module = "ca.stellardrift:stylecheck", version.ref = "stylecheck" }
@@ -25,9 +26,10 @@ errorprone = { module = "com.google.errorprone:error_prone_core", version.ref = 
 zCheckstyle = { module = "com.puppycrawl.tools:checkstyle", version.ref = "checkstyle" }
 
 [plugins]
+errorprone = "net.ltgt.errorprone:3.1.0"
 indra = { id = "net.kyori.indra", version.ref = "indra" }
 indra-checkstyle = { id = "net.kyori.indra.checkstyle", version.ref = "indra" }
 indra-licenserSpotless = { id = "net.kyori.indra.licenser.spotless", version.ref = "indra" }
 indra-sonatype = { id = "net.kyori.indra.publishing.sonatype", version.ref = "indra" }
-errorprone = "net.ltgt.errorprone:3.1.0"
+nexusPublish = { id = "io.github.gradle-nexus.publish-plugin", version = "2.0.0-rc-1"}
 spotless = { id = "com.diffplug.spotless", version = "6.20.0" }
