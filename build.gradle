@@ -5,6 +5,7 @@ plugins {
   alias libs.plugins.indra.checkstyle
   alias libs.plugins.indra.licenserSpotless
   alias libs.plugins.indra.sonatype
+  alias libs.plugins.nexusPublish
 }
 
 group = "net.kyori"
@@ -22,6 +23,7 @@ dependencies {
   testImplementation platform(libs.junit.bom)
   testImplementation libs.junit.api
   testRuntimeOnly libs.junit.engine
+  testRuntimeOnly libs.junit.launcher
 }
 
 tasks.withType(Test).configureEach {
