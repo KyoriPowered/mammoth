@@ -3,7 +3,7 @@ version = "1.0"
 
 [versions]
 checkstyle = "10.12.3"
-indra = "3.1.2"
+indra = "3.1.3"
 junit = "5.10.0"
 stylecheck = "0.2.1"
 errorprone = "2.21.1"
@@ -32,4 +32,4 @@ indra-checkstyle = { id = "net.kyori.indra.checkstyle", version.ref = "indra" }
 indra-licenserSpotless = { id = "net.kyori.indra.licenser.spotless", version.ref = "indra" }
 indra-sonatype = { id = "net.kyori.indra.publishing.sonatype", version.ref = "indra" }
 nexusPublish = { id = "io.github.gradle-nexus.publish-plugin", version = "2.0.0-rc-1"}
-spotless = { id = "com.diffplug.spotless", version = "6.20.0" }
+spotless = { id = "com.diffplug.spotless", version = "6.21.0" }
