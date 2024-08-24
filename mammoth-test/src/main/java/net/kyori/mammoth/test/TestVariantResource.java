@@ -1,7 +1,7 @@
 /*
  * This file is part of mammoth, licensed under the MIT License.
  *
- * Copyright (c) 2021-2022 KyoriPowered
+ * Copyright (c) 2021-2024 KyoriPowered
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -62,4 +62,24 @@ public @interface TestVariantResource {
    * @since 1.1.0
    */
   boolean optional() default false;
+
+  /**
+   * Minimum runtime version to execute the resource's variants on.
+   *
+   * <p>By default, permits any version.</p>
+   *
+   * @return the minimum runtime version
+   * @since 1.4.0
+   */
+  int minimumRuntimeVersion() default -1;
+
+  /**
+   * Maximum runtime version to execute the resource's variants on.
+   *
+   * <p>By default, permits any version. This must be greater than or equal to {@link #minimumRuntimeVersion()}</p>
+   *
+   * @return the maximum runtime version
+   * @since 1.4.0
+   */
+  int maximumRuntimeVersion() default Integer.MAX_VALUE;
 }
