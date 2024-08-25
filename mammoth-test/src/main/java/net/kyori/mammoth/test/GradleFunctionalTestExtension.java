@@ -1,7 +1,7 @@
 /*
  * This file is part of mammoth, licensed under the MIT License.
  *
- * Copyright (c) 2021-2022 KyoriPowered
+ * Copyright (c) 2021-2024 KyoriPowered
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -48,6 +48,30 @@ import org.junit.platform.commons.support.AnnotationSupport;
  * An extension that can be applied to test methods to provide test template invocation context.
  */
 class GradleFunctionalTestExtension implements TestTemplateInvocationContextProvider {
+  private static final int CURRENT_JVM;
+
+  static {
+    final String versionProp = System.getProperty("java.version");
+    if (versionProp == null) {
+      throw new IllegalStateException("System property 'java.version' has not been set???");
+    }
+    final String[] versionComps = versionProp.split("\\.", -1);
+    if (versionComps.length < 1) {
+      throw new IllegalStateException("Empty version components in property value '" + versionProp + "'");
+    }
+
+    String toParse = versionComps[0];
+    if ("1".equals(toParse)) {
+      toParse = versionComps[1];
+    }
+
+    try {
+      CURRENT_JVM = Integer.parseInt(toParse);
+    } catch (final NumberFormatException ex) {
+      throw new IllegalArgumentException("Invalid JVM version component '" + toParse + "' in version property '" + versionProp + "'", ex);
+    }
+  }
+
   @Override
   public boolean supportsTestTemplate(final ExtensionContext context) {
     final Optional<Method> method = context.getTestMethod();
@@ -56,6 +80,15 @@ class GradleFunctionalTestExtension implements TestTemplateInvocationContextProv
     }
 
     return AnnotationSupport.isAnnotated(method, GradleFunctionalTest.class);
+  }
+
+  private static boolean permitsJavaVersion(final int minVersion, final int maxVersion) {
+    if (maxVersion < minVersion) {
+      throw new IllegalArgumentException("Maximum runtime version provided (" + maxVersion + ") is less than minimum version (" + minVersion + ")");
+    }
+
+    return CURRENT_JVM >= minVersion &&
+      CURRENT_JVM <= maxVersion;
   }
 
   @Override
@@ -70,9 +103,11 @@ class GradleFunctionalTestExtension implements TestTemplateInvocationContextProv
       return Stream.of(this.produce(context, commonArgs, ""));
     } else {
       final Stream<TestTemplateInvocationContext> directVariants = variants.stream()
+        .filter(variant -> permitsJavaVersion(variant.minimumRuntimeVersion(), variant.maximumRuntimeVersion()))
         .map(variant -> this.produce(context, commonArgs, variant.gradleVersion(), variant.extraArguments()));
 
       final Stream<TestTemplateInvocationContext> resourceVariants = variantSources.stream()
+        .filter(variantRes -> permitsJavaVersion(variantRes.minimumRuntimeVersion(), variantRes.maximumRuntimeVersion()))
         .flatMap(source -> this.readLines(source.value(), context.getRequiredTestClass().getResource(source.value()), source.optional()))
         .filter(arr -> arr.length > 0)
         .map(line -> this.produce(context, commonArgs, line[0], line.length > 1 ? line[1].split(" ", -1) : new String[0]));
