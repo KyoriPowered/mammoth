@@ -1,7 +1,7 @@
 /*
  * This file is part of mammoth, licensed under the MIT License.
  *
- * Copyright (c) 2021-2022 KyoriPowered
+ * Copyright (c) 2021-2024 KyoriPowered
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -24,8 +24,7 @@
 package net.kyori.mammoth;
 
 import org.gradle.api.Action;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 
 import static java.util.Objects.requireNonNull;
 
@@ -47,7 +46,7 @@ public final class Configurable {
    * @return the provided {@code instance}
    * @since 1.0.0
    */
-  public static <T> @NotNull T configure(final @NotNull T instance, final @NotNull Action<T> configureAction) {
+  public static <T> T configure(final T instance, final Action<T> configureAction) {
     requireNonNull(configureAction, "configureAction").execute(instance);
     return instance;
   }
@@ -61,7 +60,7 @@ public final class Configurable {
    * @return the provided {@code instance}
    * @since 1.0.0
    */
-  public static <T> @NotNull T configureIfNonNull(final @NotNull T instance, final @Nullable Action<T> configureAction) {
+  public static <T> T configureIfNonNull(final T instance, final @Nullable Action<T> configureAction) {
     if (configureAction != null) {
       configureAction.execute(instance);
     }

@@ -1,7 +1,7 @@
 /*
  * This file is part of mammoth, licensed under the MIT License.
  *
- * Copyright (c) 2021-2023 KyoriPowered
+ * Copyright (c) 2021-2024 KyoriPowered
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -31,8 +31,7 @@ import org.gradle.api.plugins.PluginContainer;
 import org.gradle.api.tasks.TaskContainer;
 import org.gradle.testfixtures.ProjectBuilder;
 import org.gradle.util.GradleVersion;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
@@ -44,7 +43,7 @@ class ProjectPluginTest {
 
   static class ProjectPluginFailing implements ProjectPlugin {
     @Override
-    public void apply(final @NotNull Project project, final @NotNull PluginContainer plugins, final @NotNull ExtensionContainer extensions, final @NotNull TaskContainer tasks) {
+    public void apply(final Project project, final PluginContainer plugins, final ExtensionContainer extensions, final TaskContainer tasks) {
       // no-op
     }
 
@@ -57,7 +56,7 @@ class ProjectPluginTest {
   static class ProjectPluginSuccessful implements ProjectPlugin {
 
     @Override
-    public void apply(final @NotNull Project project, final @NotNull PluginContainer plugins, final @NotNull ExtensionContainer extensions, final @NotNull TaskContainer tasks) {
+    public void apply(final Project project, final PluginContainer plugins, final ExtensionContainer extensions, final TaskContainer tasks) {
       // no-op
     }
 
