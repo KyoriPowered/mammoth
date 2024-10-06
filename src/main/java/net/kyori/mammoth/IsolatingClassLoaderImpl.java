@@ -28,25 +28,24 @@ import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.Enumeration;
 import java.util.NoSuchElementException;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 
 final class IsolatingClassLoaderImpl extends URLClassLoader {
   static {
     ClassLoader.registerAsParallelCapable();
   }
 
-  private final ClassLoader parent;
+  private final @Nullable ClassLoader parent;
 
   // todo: maybe add transformer function (UnaryOperator<byte[]>)? just for fun
   // todo: add a filter
-  IsolatingClassLoaderImpl(final URL[] urls, final ClassLoader parent) {
+  IsolatingClassLoaderImpl(final URL[] urls, final @Nullable ClassLoader parent) {
     super(urls, parent);
     this.parent = parent;
   }
 
   @Override
-  protected @Nullable Class<?> loadClass(final @NotNull String name, final boolean resolve) throws ClassNotFoundException {
+  protected @Nullable Class<?> loadClass(final String name, final boolean resolve) throws ClassNotFoundException {
     synchronized (this.getClassLoadingLock(name)) {
       Class<?> result = this.findLoadedClass(name);
       if (result == null) {
@@ -78,7 +77,7 @@ final class IsolatingClassLoaderImpl extends URLClassLoader {
   }
 
   @Override
-  public @NotNull Enumeration<URL> getResources(final String name) throws IOException {
+  public Enumeration<URL> getResources(final String name) throws IOException {
     return new Enumeration<URL>() {
       @Nullable Enumeration<URL> active = IsolatingClassLoaderImpl.this.findResources(name);
       @Nullable Enumeration<URL> staged = IsolatingClassLoaderImpl.this.parent == null
@@ -102,7 +101,7 @@ final class IsolatingClassLoaderImpl extends URLClassLoader {
       }
 
       @Override
-      public @NotNull URL nextElement() {
+      public URL nextElement() {
         final @Nullable Enumeration<URL> component = this.nextComponent();
         if (component == null) {
           throw new NoSuchElementException();
