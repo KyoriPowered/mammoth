@@ -17,7 +17,7 @@ indraSonatype {
 }
 
 dependencies {
-  compileOnlyApi libs.jetbrainsAnnotations
+  compileOnlyApi libs.jspecify
   implementation gradleApi()
   
   testImplementation platform(libs.junit.bom)
