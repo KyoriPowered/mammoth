@@ -1,7 +1,7 @@
 /*
  * This file is part of mammoth, licensed under the MIT License.
  *
- * Copyright (c) 2021-2023 KyoriPowered
+ * Copyright (c) 2021-2024 KyoriPowered
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -31,8 +31,7 @@ import org.gradle.api.plugins.ExtensionContainer;
 import org.gradle.api.plugins.PluginContainer;
 import org.gradle.api.tasks.TaskContainer;
 import org.gradle.util.GradleVersion;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 
 /**
  * A more friendly interface for creating a {@link Plugin} that operates on a {@link Project}.
@@ -44,7 +43,7 @@ import org.jetbrains.annotations.Nullable;
 public interface ProjectPlugin extends Plugin<Project> {
   @Override
   @SuppressWarnings("deprecation") // workaround
-  default void apply(final @NotNull Project project) {
+  default void apply(final Project project) {
     // Check version
     GradleCompat.requireMinimumVersion(this.minimumGradleVersion(), this, project.getDisplayName());
 
@@ -79,11 +78,11 @@ public interface ProjectPlugin extends Plugin<Project> {
    */
   @Deprecated
   default void apply(
-    final @NotNull Project project,
-    final @NotNull PluginContainer plugins,
-    final @NotNull ExtensionContainer extensions,
-    final @NotNull Convention convention,
-    final @NotNull TaskContainer tasks
+    final Project project,
+    final PluginContainer plugins,
+    final ExtensionContainer extensions,
+    final Convention convention,
+    final TaskContainer tasks
   ) {
     this.apply(project, plugins, extensions, tasks);
   }
@@ -98,10 +97,10 @@ public interface ProjectPlugin extends Plugin<Project> {
    * @since 1.1.0
    */
   default void apply(
-    final @NotNull Project project,
-    final @NotNull PluginContainer plugins,
-    final @NotNull ExtensionContainer extensions,
-    final @NotNull TaskContainer tasks
+    final Project project,
+    final PluginContainer plugins,
+    final ExtensionContainer extensions,
+    final TaskContainer tasks
   ) {
     throw new GradleException("The plugin in class " + this.getClass() + " has not been updated" +
       "to override the non-Convention apply method in ProjectPlugin!");

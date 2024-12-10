@@ -28,4 +28,7 @@
  * annotating methods that have a parameter of either type {@link net.kyori.mammoth.test.TestContext}
  * or {@link org.gradle.testkit.runner.GradleRunner}.</p>
  */
+@NullMarked
 package net.kyori.mammoth.test;
+
+import org.jspecify.annotations.NullMarked;
