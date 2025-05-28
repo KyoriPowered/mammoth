@@ -11,3 +11,5 @@ jobs:
   call-build:
     uses: KyoriPowered/.github/.github/workflows/shared-ci.yaml@trunk
     secrets: inherit
+    with:
+      runtime_version: 17
