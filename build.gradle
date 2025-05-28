@@ -60,6 +60,9 @@ allprojects {
       ci true
       publishing true
     }
+    javaVersions {
+      minimumToolchain 17
+    }
     mitLicense()
     checkstyle(libs.versions.checkstyle.get())
 
