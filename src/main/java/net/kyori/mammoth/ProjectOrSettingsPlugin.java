@@ -1,7 +1,7 @@
 /*
  * This file is part of mammoth, licensed under the MIT License.
  *
- * Copyright (c) 2021-2022 KyoriPowered
+ * Copyright (c) 2021-2024 KyoriPowered
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -32,8 +32,7 @@ import org.gradle.api.plugins.ExtensionContainer;
 import org.gradle.api.plugins.PluginContainer;
 import org.gradle.api.tasks.TaskContainer;
 import org.gradle.util.GradleVersion;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 
 /**
  * A plugin that can be applied to either a {@link Project} or {@link Settings}.
@@ -42,7 +41,7 @@ import org.jetbrains.annotations.Nullable;
  */
 public interface ProjectOrSettingsPlugin extends Plugin<Object> {
   @Override
-  default void apply(final @NotNull Object target) {
+  default void apply(final Object target) {
     if (target instanceof Project) {
       final Project project = (Project) target;
       GradleCompat.requireMinimumVersion(this.minimumGradleVersion(), this, project.getDisplayName());
@@ -71,10 +70,10 @@ public interface ProjectOrSettingsPlugin extends Plugin<Object> {
    * @since 1.3.0
    */
   void applyToProject(
-    final @NotNull Project target,
-    final @NotNull PluginContainer plugins,
-    final @NotNull ExtensionContainer extensions,
-    final @NotNull TaskContainer tasks
+    final Project target,
+    final PluginContainer plugins,
+    final ExtensionContainer extensions,
+    final TaskContainer tasks
   );
 
   /**
@@ -86,9 +85,9 @@ public interface ProjectOrSettingsPlugin extends Plugin<Object> {
    * @since 1.3.0
    */
   void applyToSettings(
-    final @NotNull Settings target,
-    final @NotNull PluginContainer plugins,
-    final @NotNull ExtensionContainer extensions
+    final Settings target,
+    final PluginContainer plugins,
+    final ExtensionContainer extensions
   );
 
   /**
@@ -108,7 +107,7 @@ public interface ProjectOrSettingsPlugin extends Plugin<Object> {
    * @return whether the Settings that created the provided project has this plugin applied
    * @since 1.3.0
    */
-  default boolean isAppliedToSettingsOf(final @NotNull Project project) {
+  default boolean isAppliedToSettingsOf(final Project project) {
     return project.getGradle().getPlugins().hasPlugin(this.getClass());
   }
 }

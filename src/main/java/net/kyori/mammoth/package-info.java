@@ -24,4 +24,7 @@
 /**
  * Helpers for developing Gradle plugins.
  */
+@NullMarked
 package net.kyori.mammoth;
+
+import org.jspecify.annotations.NullMarked;
