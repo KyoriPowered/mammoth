@@ -1,5 +1,5 @@
 [metadata]
-version = "1.0"
+format = { version = "1.1" }
 
 [versions]
 checkstyle = "10.25.0"
@@ -9,7 +9,8 @@ stylecheck = "0.2.1"
 errorprone = "2.38.0"
 
 [libraries]
-jetbrainsAnnotations = "org.jetbrains:annotations:25.0.0"
+jetbrainsAnnotations = { module = "org.jetbrains:annotations", version = "25.0.0" }
+jspecify = { module = "org.jspecify:jspecify", version = "1.0.0" }
 
 # test
 junit-bom = { module = "org.junit:junit-bom", version.ref = "junit" }

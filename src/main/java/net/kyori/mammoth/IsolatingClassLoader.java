@@ -1,7 +1,7 @@
 /*
  * This file is part of mammoth, licensed under the MIT License.
  *
- * Copyright (c) 2024 KyoriPowered
+ * Copyright (c) 2024-2025 KyoriPowered
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -30,8 +30,8 @@ import java.net.URLClassLoader;
 import java.util.Iterator;
 import java.util.Set;
 import org.gradle.api.file.FileCollection;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
 /**
  * A factory for classloaders that will load classes from themselves rather than its parent where possible.
@@ -42,6 +42,7 @@ import org.jetbrains.annotations.Nullable;
  *
  * @since 1.4.0
  */
+@NullMarked
 public final class IsolatingClassLoader {
   private IsolatingClassLoader() {
   }
@@ -54,7 +55,7 @@ public final class IsolatingClassLoader {
    * @return the newly created loader
    * @since 1.4.0
    */
-  public static @NotNull URLClassLoader isolatingClassLoader(final @Nullable ClassLoader parent, final @NotNull URL @NotNull... urls) {
+  public static URLClassLoader isolatingClassLoader(final @Nullable ClassLoader parent, final URL... urls) {
     return new IsolatingClassLoaderImpl(urls, parent);
   }
 
@@ -66,7 +67,7 @@ public final class IsolatingClassLoader {
    * @return the newly created loader
    * @since 1.4.0
    */
-  public static @NotNull URLClassLoader isolatingClassLoader(final @Nullable ClassLoader parent, final @NotNull FileCollection files) {
+  public static URLClassLoader isolatingClassLoader(final @Nullable ClassLoader parent, final FileCollection files) {
     final Set<File> unwrapped = files.getFiles();
     final URL[] urls = new URL[unwrapped.size()];
     final Iterator<File> it = files.iterator();

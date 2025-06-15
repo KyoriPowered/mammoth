@@ -1,7 +1,7 @@
 /*
  * This file is part of mammoth, licensed under the MIT License.
  *
- * Copyright (c) 2021-2022 KyoriPowered
+ * Copyright (c) 2021-2025 KyoriPowered
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -25,13 +25,14 @@ package net.kyori.mammoth;
 
 import org.gradle.api.provider.HasConfigurableValue;
 import org.gradle.api.provider.Provider;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NullMarked;
 
 /**
  * Helpers for working with properties.
  *
  * @since 1.0.0
  */
+@NullMarked
 public final class Properties {
   private Properties() {
   }
@@ -47,7 +48,7 @@ public final class Properties {
    * @since 1.1.0
    */
   @SuppressWarnings("deprecation")
-  public static <T> @NotNull Provider<T> forUseAtConfigurationTime(final @NotNull Provider<T> provider) {
+  public static <T> Provider<T> forUseAtConfigurationTime(final Provider<T> provider) {
     if (GradleCompat.HAS_FOR_USE_AT_CONFIGURATION_TIME) {
       return provider.forUseAtConfigurationTime();
     } else {
@@ -63,7 +64,7 @@ public final class Properties {
    * @return the property
    * @since 1.0.0
    */
-  public static <T extends HasConfigurableValue> @NotNull T finalized(final @NotNull T property) {
+  public static <T extends HasConfigurableValue> T finalized(final T property) {
     property.finalizeValue();
     return property;
   }
@@ -76,7 +77,7 @@ public final class Properties {
    * @return the property
    * @since 1.0.0
    */
-  public static <T extends HasConfigurableValue> @NotNull T finalizedOnRead(final @NotNull T property) {
+  public static <T extends HasConfigurableValue> T finalizedOnRead(final T property) {
     property.finalizeValueOnRead();
     return property;
   }
@@ -89,7 +90,7 @@ public final class Properties {
    * @return the property
    * @since 1.0.0
    */
-  public static <T extends HasConfigurableValue> @NotNull T changesDisallowed(final @NotNull T property) {
+  public static <T extends HasConfigurableValue> T changesDisallowed(final T property) {
     property.disallowChanges();
     return property;
   }
