@@ -1,7 +1,7 @@
 /*
  * This file is part of mammoth, licensed under the MIT License.
  *
- * Copyright (c) 2021-2024 KyoriPowered
+ * Copyright (c) 2021-2025 KyoriPowered
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -31,6 +31,7 @@ import org.gradle.api.plugins.ExtensionContainer;
 import org.gradle.api.plugins.PluginContainer;
 import org.gradle.api.tasks.TaskContainer;
 import org.gradle.util.GradleVersion;
+import org.jspecify.annotations.NullMarked;
 import org.jspecify.annotations.Nullable;
 
 /**
@@ -40,6 +41,7 @@ import org.jspecify.annotations.Nullable;
  *
  * @since 1.0.0
  */
+@NullMarked
 public interface ProjectPlugin extends Plugin<Project> {
   @Override
   @SuppressWarnings("deprecation") // workaround

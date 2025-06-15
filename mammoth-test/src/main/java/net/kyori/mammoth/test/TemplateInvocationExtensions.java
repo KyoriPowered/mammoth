@@ -1,7 +1,7 @@
 /*
  * This file is part of mammoth, licensed under the MIT License.
  *
- * Copyright (c) 2021-2022 KyoriPowered
+ * Copyright (c) 2021-2025 KyoriPowered
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -29,6 +29,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
+import org.jspecify.annotations.NullMarked;
 import org.junit.jupiter.api.extension.AfterEachCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.api.extension.ParameterContext;
@@ -36,6 +37,7 @@ import org.junit.jupiter.api.extension.ParameterResolutionException;
 import org.junit.jupiter.api.extension.ParameterResolver;
 
 // Template-specific context information
+@NullMarked
 class TemplateInvocationExtensions implements AfterEachCallback, ParameterResolver {
   private final TestContext context;
 

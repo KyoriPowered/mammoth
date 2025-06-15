@@ -17,6 +17,7 @@ indraSonatype {
 }
 
 dependencies {
+  compileOnlyApi libs.jetbrainsAnnotations // keep to avoid breaking builds, will be removed for 2.0
   compileOnlyApi libs.jspecify
   implementation gradleApi()
   

@@ -1,7 +1,7 @@
 /*
  * This file is part of mammoth, licensed under the MIT License.
  *
- * Copyright (c) 2021-2024 KyoriPowered
+ * Copyright (c) 2021-2025 KyoriPowered
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -25,12 +25,14 @@ package net.kyori.mammoth;
 
 import org.gradle.api.provider.HasConfigurableValue;
 import org.gradle.api.provider.Provider;
+import org.jspecify.annotations.NullMarked;
 
 /**
  * Helpers for working with properties.
  *
  * @since 1.0.0
  */
+@NullMarked
 public final class Properties {
   private Properties() {
   }

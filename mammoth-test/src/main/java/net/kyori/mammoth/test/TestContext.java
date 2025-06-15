@@ -1,7 +1,7 @@
 /*
  * This file is part of mammoth, licensed under the MIT License.
  *
- * Copyright (c) 2021-2024 KyoriPowered
+ * Copyright (c) 2021-2025 KyoriPowered
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -37,6 +37,7 @@ import java.util.List;
 import java.util.regex.Pattern;
 import org.gradle.testkit.runner.BuildResult;
 import org.gradle.testkit.runner.GradleRunner;
+import org.jspecify.annotations.NullMarked;
 import org.junit.jupiter.api.Assertions;
 
 import static java.util.Objects.requireNonNull;
@@ -48,6 +49,7 @@ import static java.util.Objects.requireNonNull;
  *
  * @since 1.1.0
  */
+@NullMarked
 public final class TestContext {
   private static final Pattern LINE_ENDING = Pattern.compile("\r\n");
 

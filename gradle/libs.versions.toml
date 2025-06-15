@@ -1,5 +1,5 @@
 [metadata]
-version = "1.0"
+format = { version = "1.1" }
 
 [versions]
 checkstyle = "10.18.2"
@@ -9,6 +9,7 @@ stylecheck = "0.2.1"
 errorprone = "2.30.0"
 
 [libraries]
+jetbrainsAnnotations = { module = "org.jetbrains:annotations", version = "25.0.0" }
 jspecify = { module = "org.jspecify:jspecify", version = "1.0.0" }
 
 # test
