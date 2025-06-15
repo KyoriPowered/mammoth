@@ -9,7 +9,7 @@ plugins {
 }
 
 group = "net.kyori"
-version = "1.5.0"
+version = "1.5.1-SNAPSHOT"
 description = "Helpful API for writing Gradle plugins"
 
 indraSonatype {
