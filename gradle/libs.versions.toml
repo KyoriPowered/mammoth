@@ -4,7 +4,7 @@ format = { version = "1.1" }
 [versions]
 checkstyle = "10.26.1"
 indra = "3.1.3"
-junit = "5.13.4"
+junit = "5.14.0"
 stylecheck = "0.2.1"
 errorprone = "2.41.0"
 
