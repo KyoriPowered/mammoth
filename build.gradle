@@ -12,10 +12,6 @@ group = "net.kyori"
 version = "1.5.1-SNAPSHOT"
 description = "Helpful API for writing Gradle plugins"
 
-indraSonatype {
-  useAlternateSonatypeOSSHost("s01")
-}
-
 dependencies {
   compileOnlyApi libs.jetbrainsAnnotations // keep to avoid breaking builds, will be removed for 2.0
   compileOnlyApi libs.jspecify
